@@ -5,7 +5,7 @@ import middleware from "./middleware";
 
 
 const app: express.Application = express();
-applyMiddleware(middleware, router);
+applyMiddleware(middleware, app);
 
 const server = http.createServer(app);
 const { PORT = 3000 } = process.env;
