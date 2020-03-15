@@ -1,14 +1,17 @@
 import express from 'express';
+import http from 'http';
 
 
-const app = express();
-const port = 3000;
-app.get('/', (req, res) => {
-  res.send('hello');
+const app: express.Application = express();
+const server = http.createServer(app);
+const { PORT = 3000 } = process.env;
+
+app.use('/', (req, res) => {
+    res.send('hello');
 });
-app.listen(port, err => {
-  if (err) {
-    return console.error(err);
-  }
-  return console.log(`server is listening on ${port}`);
-});
+
+
+server.listen(PORT, () => 
+    console.log('Server is running http://localhost:'+PORT)
+    
+);
