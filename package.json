@@ -23,7 +23,9 @@
     "@types/node": "^13.9.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "express": "^5.0.0-alpha.7"
+    "dotenv": "^8.2.0",
+    "express": "^5.0.0-alpha.7",
+    "wizcloud-api": "^1.0.14"
   },
   "repository": {
     "type": "git",

@@ -68,7 +68,9 @@
             <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
             <div class="dropdown-content">
                 <a href="aa.html">tmpJurnalBatch</a>
-                <a href="ab.html">chk/new/issueJurnalBatch</a>
+                <a href="ab.html">chkJurnalBatch</a>
+                <a href="method/newJurnalBatch">newJurnalBatch</a>
+                <a href="ad.html">issueJurnalBatch</a>
             </div>
         </li>
         <li class="dropdown">
@@ -81,7 +83,9 @@
             <a href="javascript:void(0)" class="dropbtn">Documents</a>
             <div class="dropdown-content">
                 <a href="ca.html">createDocument</a>
-                <a href="cb.html">issue/del/showDocument</a>
+                <a href="cb.html">issueDoc</a>
+                <a href="cc.html">delDocument</a>
+                <a href="cd.html">showDocument</a>
             </div>
         </li>
         <li class="dropdown">
@@ -99,13 +103,13 @@
         <li class="dropdown">
             <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
             <div class="dropdown-content">
-                <a href="fa.html">CompaniesForToken</a>
+                <a href="method/CompaniesForToken">CompaniesForToken</a>
             </div>
         </li>
     </ul>
 
     <h3>tmpJurnalBatch</h3>
-    <form action="submit_form" method="POST">
+    <form action="method/tmpJurnalBatch" method="GET">
         <h4>insertolastb:</h4>
         <label for="insertolastb">Insert the transactions to the last open temporary batch. If false, open a new
             batch.</label><br>
