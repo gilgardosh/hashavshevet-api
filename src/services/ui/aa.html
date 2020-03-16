@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a,
+        .dropbtn {
+            display: inline-block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover,
+        .dropdown:hover .dropbtn {
+            background-color: red;
+        }
+
+        li.dropdown {
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            text-align: left;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul>
+        <!-- <li><a href="#journal">Journal transaction</a></li> -->
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
+            <div class="dropdown-content">
+                <a href="aa.html">tmpJurnalBatch</a>
+                <a href="ab.html">chk/new/issueJurnalBatch</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Indexs</a>
+            <div class="dropdown-content">
+                <a href="ba.html">importIndexRecords</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Documents</a>
+            <div class="dropdown-content">
+                <a href="ca.html">createDocument</a>
+                <a href="cb.html">issue/del/showDocument</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Bank Pages</a>
+            <div class="dropdown-content">
+                <a href="da.html">importBankPageRecords</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Export Data</a>
+            <div class="dropdown-content">
+                <a href="ea.html">exportDataRecords</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
+            <div class="dropdown-content">
+                <a href="fa.html">CompaniesForToken</a>
+            </div>
+        </li>
+    </ul>
+
+    <h3>tmpJurnalBatch</h3>
+    <form action="submit_form" method="POST">
+        <h4>insertolastb:</h4>
+        <label for="insertolastb">Insert the transactions to the last open temporary batch. If false, open a new
+            batch.</label><br>
+        <input type="radio" id="insertolastbtrue" name="insertolastb" value="true">
+        <label for="insertolastbtrue">true</label><br>
+        <input type="radio" id="insertolastbfalse" name="insertolastb" value="false">
+        <label for="insertolastbfalse">false</label><br><br>
+        <h4>batchNo:</h4>
+        <label for="batchNo">Insert the transactions to the temporary batch having this number. If no such temporary
+            batch exists, open a new batch.</label><br>
+        <input type="text" id="batchNo" name="batchNo"><br><br>
+        <h4>check:</h4>
+        <label for="check">check the batch for errors and return the batch status</label><br>
+        <input type="radio" id="checktrue" name="check" value="true">
+        <label for="checktrue">true</label><br>
+        <input type="radio" id="checkfalse" name="check" value="false">
+        <label for="checkfalse">false</label><br><br>
+        <h4>issue:</h4>
+        <label for="issue">input the temporary batch into the permanent storage.</label><br>
+        <input type="radio" id="issuetrue" name="issue" value="true">
+        <label for="issuetrue">true</label><br>
+        <input type="radio" id="issuefalse" name="issue" value="false">
+        <label for="issuefalse">false</label><br><br>
+        <h4>rows:</h4>
+        <label for="rows">object name contains data</label><br>
+        <input type="text" id="rows" name="rows"><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+</body>
+
+</html>
