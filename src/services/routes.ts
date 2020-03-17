@@ -60,6 +60,48 @@ export default [
         }
     },
     {
+        path: "/ca.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/ca.html');
+        }
+    },
+    {
+        path: "/cb.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/cb.html');
+        }
+    },
+    {
+        path: "/cc.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/cc.html');
+        }
+    },
+    {
+        path: "/cd.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/cd.html');
+        }
+    },
+    {
+        path: "/da.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/da.html');
+        }
+    },
+    {
+        path: "/ea.html",
+        method: "get",
+        handler: async (req: Request, res: Response) => {
+            res.sendFile(__dirname + '/ui/ea.html');
+        }
+    },
+    {
         path: "/method/napi",
         method: "get",
         handler: async (req: Request, res: Response) => {

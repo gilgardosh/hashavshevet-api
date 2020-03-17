@@ -108,12 +108,12 @@
         </li>
     </ul>
 
-    <h3>chkJurnalBatch</h3>
-    <P>Checks if there are errors in the batch</P>
-    <form enctype='application/json' action="method/chkJurnalBatch" method="GET">
-        <h4>batchNo:</h4>
-        <label for="batchNo">check the batch having this number</label><br>
-        <input type="text" id="batchNo" name="batchNo"><br><br>
+    <h3>exportDataRecords</h3>
+    <p>from defined param(encrypt_reportData) parameters: from defined param (params_data)</p>
+    <form action="method/exportDataRecords" method="GET">
+        <h4>datafile:</h4>
+        <label for="datafile">object name contains data</label><br>
+        <input type="text" id="datafile" name="datafile"><br><br>
         <input type="submit" value="Submit">
     </form>
 
