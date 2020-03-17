@@ -1,134 +1,132 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
 
-        li {
-            float: left;
-        }
+      li {
+        float: left;
+      }
 
-        li a,
-        .dropbtn {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+      li a,
+      .dropbtn {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-        li a:hover,
-        .dropdown:hover .dropbtn {
-            background-color: red;
-        }
+      li a:hover,
+      .dropdown:hover .dropbtn {
+        background-color: red;
+      }
 
-        li.dropdown {
-            display: inline-block;
-        }
+      li.dropdown {
+        display: inline-block;
+      }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
 
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <ul>
-        <!-- <li><a href="#journal">Journal transaction</a></li> -->
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
-            <div class="dropdown-content">
-                <a href="aa.html">tmpJurnalBatch</a>
-                <a href="ab.html">chkJurnalBatch</a>
-                <a href="method/newJurnalBatch">newJurnalBatch</a>
-                <a href="ad.html">issueJurnalBatch</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Indexs</a>
-            <div class="dropdown-content">
-                <a href="ba.html">importIndexRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Documents</a>
-            <div class="dropdown-content">
-                <a href="ca.html">createDocument</a>
-                <a href="cb.html">issueDoc</a>
-                <a href="cc.html">delDocument</a>
-                <a href="cd.html">showDocument</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Bank Pages</a>
-            <div class="dropdown-content">
-                <a href="da.html">importBankPageRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Export Data</a>
-            <div class="dropdown-content">
-                <a href="ea.html">exportDataRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
-            <div class="dropdown-content">
-                <a href="method/CompaniesForToken">CompaniesForToken</a>
-            </div>
-        </li>
+      <!-- <li><a href="#journal">Journal transaction</a></li> -->
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
+        <div class="dropdown-content">
+          <a href="aa.html">tmpJurnalBatch</a>
+          <a href="ab.html">chkJurnalBatch</a>
+          <a href="method/newJurnalBatch">newJurnalBatch</a>
+          <a href="ad.html">issueJurnalBatch</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Indexs</a>
+        <div class="dropdown-content">
+          <a href="ba.html">importIndexRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Documents</a>
+        <div class="dropdown-content">
+          <a href="ca.html">createDocument</a>
+          <a href="cb.html">issueDoc</a>
+          <a href="cc.html">delDocument</a>
+          <a href="cd.html">showDocument</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Bank Pages</a>
+        <div class="dropdown-content">
+          <a href="da.html">importBankPageRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Export Data</a>
+        <div class="dropdown-content">
+          <a href="ea.html">exportDataRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
+        <div class="dropdown-content">
+          <a href="method/CompaniesForToken">CompaniesForToken</a>
+        </div>
+      </li>
     </ul>
 
     <h3>importIndexRecords</h3>
-    <P>Imports or updates records to the selected index</P>
+    <p>Imports or updates records to the selected index</p>
     <form action="method/importIndexRecords" method="GET">
-        <h4>myindex:</h4>
-        <label for="insertolastb">acc- for accounts itm- for items</label><br>
-        <input type="radio" id="acc" name="myindex" value="acc">
-        <label for="acc">acc</label><br>
-        <input type="radio" id="itm" name="myindex" value="itm">
-        <label for="itm">itm</label><br><br>
-        <h4>insertnew:</h4>
-        <label for="check">check the batch for errors and return the batch status</label><br>
-        <input type="radio" id="true" name="insertnew" value="true">
-        <label for="true">true</label><br>
-        <input type="radio" id="false" name="insertnew" value="false">
-        <label for="false">false</label><br><br>
-        <h4>rows:</h4>
-        <label for="rows">object name contains data</label><br>
-        <input type="text" id="rows" name="rows"><br><br>
-        <input type="submit" value="Submit">
+      <h4>myindex:</h4>
+      <label for="insertolastb">acc- for accounts itm- for items</label><br />
+      <input type="radio" id="acc" name="myindex" value="acc" />
+      <label for="acc">acc</label><br />
+      <input type="radio" id="itm" name="myindex" value="itm" />
+      <label for="itm">itm</label><br /><br />
+      <h4>insertnew:</h4>
+      <label for="check"
+        >check the batch for errors and return the batch status</label
+      ><br />
+      <input type="radio" id="true" name="insertnew" value="true" />
+      <label for="true">true</label><br />
+      <input type="radio" id="false" name="insertnew" value="false" />
+      <label for="false">false</label><br /><br />
+      <h4>rows:</h4>
+      <label for="rows">object name contains data</label><br />
+      <input type="text" id="rows" name="rows" /><br /><br />
+      <input type="submit" value="Submit" />
     </form>
-
-</body>
-
+  </body>
 </html>

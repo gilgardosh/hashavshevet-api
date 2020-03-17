@@ -1,122 +1,122 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-        }
+      ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #333;
+      }
 
-        li {
-            float: left;
-        }
+      li {
+        float: left;
+      }
 
-        li a,
-        .dropbtn {
-            display: inline-block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
+      li a,
+      .dropbtn {
+        display: inline-block;
+        color: white;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
 
-        li a:hover,
-        .dropdown:hover .dropbtn {
-            background-color: red;
-        }
+      li a:hover,
+      .dropdown:hover .dropbtn {
+        background-color: red;
+      }
 
-        li.dropdown {
-            display: inline-block;
-        }
+      li.dropdown {
+        display: inline-block;
+      }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
+      .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f9f9f9;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+      }
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            text-align: left;
-        }
+      .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+        text-align: left;
+      }
 
-        .dropdown-content a:hover {
-            background-color: #f1f1f1;
-        }
+      .dropdown-content a:hover {
+        background-color: #f1f1f1;
+      }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+      .dropdown:hover .dropdown-content {
+        display: block;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <ul>
-        <!-- <li><a href="#journal">Journal transaction</a></li> -->
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
-            <div class="dropdown-content">
-                <a href="aa.html">tmpJurnalBatch</a>
-                <a href="ab.html">chkJurnalBatch</a>
-                <a href="method/newJurnalBatch">newJurnalBatch</a>
-                <a href="ad.html">issueJurnalBatch</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Indexs</a>
-            <div class="dropdown-content">
-                <a href="ba.html">importIndexRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Documents</a>
-            <div class="dropdown-content">
-                <a href="ca.html">createDocument</a>
-                <a href="cb.html">issueDoc</a>
-                <a href="cc.html">delDocument</a>
-                <a href="cd.html">showDocument</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Bank Pages</a>
-            <div class="dropdown-content">
-                <a href="da.html">importBankPageRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Export Data</a>
-            <div class="dropdown-content">
-                <a href="ea.html">exportDataRecords</a>
-            </div>
-        </li>
-        <li class="dropdown">
-            <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
-            <div class="dropdown-content">
-                <a href="method/CompaniesForToken">CompaniesForToken</a>
-            </div>
-        </li>
+      <!-- <li><a href="#journal">Journal transaction</a></li> -->
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Journal transaction</a>
+        <div class="dropdown-content">
+          <a href="aa.html">tmpJurnalBatch</a>
+          <a href="ab.html">chkJurnalBatch</a>
+          <a href="method/newJurnalBatch">newJurnalBatch</a>
+          <a href="ad.html">issueJurnalBatch</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Indexs</a>
+        <div class="dropdown-content">
+          <a href="ba.html">importIndexRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Documents</a>
+        <div class="dropdown-content">
+          <a href="ca.html">createDocument</a>
+          <a href="cb.html">issueDoc</a>
+          <a href="cc.html">delDocument</a>
+          <a href="cd.html">showDocument</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Bank Pages</a>
+        <div class="dropdown-content">
+          <a href="da.html">importBankPageRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Export Data</a>
+        <div class="dropdown-content">
+          <a href="ea.html">exportDataRecords</a>
+        </div>
+      </li>
+      <li class="dropdown">
+        <a href="javascript:void(0)" class="dropbtn">Export Companies List</a>
+        <div class="dropdown-content">
+          <a href="method/CompaniesForToken">CompaniesForToken</a>
+        </div>
+      </li>
     </ul>
 
     <h3>issueJurnalBatch</h3>
     <p>Checks and inputs the temporary batch into the permanent storage.</p>
-    <form enctype='application/json' action="method/issueJurnalBatch" method="GET">
-        <h4>batchNo:</h4>
-        <label for="batchNo">Input the batch having this number</label><br>
-        <input type="text" id="batchNo" name="batchNo"><br><br>
-        <input type="submit" value="Submit">
+    <form
+      enctype="application/json"
+      action="method/issueJurnalBatch"
+      method="GET"
+    >
+      <h4>batchNo:</h4>
+      <label for="batchNo">Input the batch having this number</label><br />
+      <input type="text" id="batchNo" name="batchNo" /><br /><br />
+      <input type="submit" value="Submit" />
     </form>
-
-</body>
-
+  </body>
 </html>
