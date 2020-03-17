@@ -16,9 +16,9 @@ process.on("unhandledRejection", e => {
 });
 
 const app: express.Application = express();
-// applyMiddleware(middleware, app);
+applyMiddleware(middleware, app);
 applyRoutes(routes, app);
-// applyMiddleware(errorHandlers, app);
+applyMiddleware(errorHandlers, app);
 
 const server = http.createServer(app);
 const { PORT = 3000 } = process.env;

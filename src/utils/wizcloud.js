@@ -25,15 +25,15 @@ function auth(company) {
         reject({ reason: "auth http fail", url, err: error });
         return;
       }
-      wizAuthToken = body;
-      // console.log("wizAuthToken",response.statusCode,wizAuthToken)
+      wizAuthToken = body;      
+      console.log("wizAuthToken",response.statusCode,wizAuthToken)
       resolve();
     });
   });
 
   return p;
 }
-
+// wizAuthToken = await 
 async function callApi(apiPath, company, data) {
   let p = new Promise(async (resolve, reject) => {
     await auth(company).catch(e => {
@@ -48,16 +48,17 @@ async function callApi(apiPath, company, data) {
       },
       form: data
     };
-    //console.log("ZZZ", options);
-    request.post(options, function(error, response, body) {
+    
+    request.post(options, function(error, response) {
       if (error) {
         console.log(error);
         reject(error);
       } else {
-        resolve(body);
+        resolve(response);
       }
     });
   });
+  
   return p;
 }
 
