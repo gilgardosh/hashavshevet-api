@@ -106,15 +106,15 @@
       </li>
     </ul>
 
-    <h3>issueJurnalBatch</h3>
-    <p>Checks and inputs the temporary batch into the permanent storage.</p>
+    <h3>chkJurnalBatch</h3>
+    <p>Checks if there are errors in the batch</p>
     <form
       enctype="application/json"
-      action="method/issueJurnalBatch"
-      method="GET"
+      action="method/chkJurnalBatch"
+      method="POST"
     >
       <h4>batchNo:</h4>
-      <label for="batchNo">Input the batch having this number</label><br />
+      <label for="batchNo">check the batch having this number</label><br />
       <input type="text" id="batchNo" name="batchNo" /><br /><br />
       <input type="submit" value="Submit" />
     </form>

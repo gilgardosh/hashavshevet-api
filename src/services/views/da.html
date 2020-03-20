@@ -106,12 +106,12 @@
       </li>
     </ul>
 
-    <h3>issueDoc</h3>
-    <p>Check issue and input the document to the permanent storage.</p>
-    <form enctype="application/json" action="method/issueDoc" method="GET">
-      <h4>stockID:</h4>
-      <label for="stockID"> </label><br />
-      <input type="text" id="stockID" name="stockID" /><br /><br />
+    <h3>importBankPageRecords</h3>
+    <p>Import or update record</p>
+    <form action="method/importBankPageRecords" method="POST">
+      <h4>rows:</h4>
+      <label for="rows">object name contains data</label><br />
+      <input type="text" id="rows" name="rows" /><br /><br />
       <input type="submit" value="Submit" />
     </form>
   </body>

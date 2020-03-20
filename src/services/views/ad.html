@@ -106,38 +106,16 @@
       </li>
     </ul>
 
-    <h3>createDocument</h3>
-    <p>
-      Imports and updates new or already existing temporary documents. You may
-      check for errors or issue and input the documents into the permanent
-      storage (if no errors were found).
-    </p>
-    <form action="method/createDocument" method="GET">
-      <h4>issueStock:</h4>
-      <label for="issueStock">issue the document</label><br />
-      <input type="radio" id="issueStocktrue" name="issueStock" value="true" />
-      <label for="issueStocktrue">true</label><br />
-      <input
-        type="radio"
-        id="issueStockfalse"
-        name="issueStock"
-        value="false"
-      />
-      <label for="issueStockfalse">false</label><br /><br />
-      <h4>deleteTemp:</h4>
-      <label for="check">if errors found, delete document or not</label><br />
-      <input type="radio" id="deleteTemptrue" name="deleteTemp" value="true" />
-      <label for="deleteTemptrue">true</label><br />
-      <input
-        type="radio"
-        id="deleteTempfalse"
-        name="deleteTemp"
-        value="false"
-      />
-      <label for="deleteTempfalse">false</label><br /><br />
-      <h4>rows:</h4>
-      <label for="rows">object name contains data</label><br />
-      <input type="text" id="rows" name="rows" /><br /><br />
+    <h3>issueJurnalBatch</h3>
+    <p>Checks and inputs the temporary batch into the permanent storage.</p>
+    <form
+      enctype="application/json"
+      action="method/issueJurnalBatch"
+      method="POST"
+    >
+      <h4>batchNo:</h4>
+      <label for="batchNo">Input the batch having this number</label><br />
+      <input type="text" id="batchNo" name="batchNo" /><br /><br />
       <input type="submit" value="Submit" />
     </form>
   </body>

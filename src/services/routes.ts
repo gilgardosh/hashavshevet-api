@@ -1,211 +1,194 @@
 import { Request, Response } from "express";
-import {
-  napi,
-  tmpJurnalBatch,
-  chkJurnalBatch,
-  newJurnalBatch,
-  issueJurnalBatch,
-  importIndexRecords,
-  deleteIndexRecords,
-  importBankPageRecords,
-  exportDataRecords,
-  createDocument,
-  showDocument,
-  delDocument,
-  issueDoc,
-  crmActivities,
-  crmActivitiesTest,
-  CompaniesForToken
-} from "../utils/wizcloud";
+import { wizCloudCallApi } from "../utils/wizCloud";
 
 export default [
   {
     path: "/",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/aa.html");
+      res.sendFile(__dirname + "/views/aa.html");
     }
   },
   {
     path: "/aa.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/aa.html");
+      res.sendFile(__dirname + "/views/aa.html");
     }
   },
   {
     path: "/ab.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/ab.html");
+      res.sendFile(__dirname + "/views/ab.html");
     }
   },
   {
     path: "/ad.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/ad.html");
+      res.sendFile(__dirname + "/views/ad.html");
     }
   },
   {
     path: "/ba.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/ba.html");
+      res.sendFile(__dirname + "/views/ba.html");
     }
   },
   {
     path: "/ca.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/ca.html");
+      res.sendFile(__dirname + "/views/ca.html");
     }
   },
   {
     path: "/cb.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/cb.html");
+      res.sendFile(__dirname + "/views/cb.html");
     }
   },
   {
     path: "/cc.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/cc.html");
+      res.sendFile(__dirname + "/views/cc.html");
     }
   },
   {
     path: "/cd.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/cd.html");
+      res.sendFile(__dirname + "/views/cd.html");
     }
   },
   {
     path: "/da.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/da.html");
+      res.sendFile(__dirname + "/views/da.html");
     }
   },
   {
     path: "/ea.html",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.sendFile(__dirname + "/ui/ea.html");
+      res.sendFile(__dirname + "/views/ea.html");
     }
   },
   {
     path: "/method/napi",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.send(napi());
+      wizCloudCallApi('api/napi', {}).then(r => res.send(r));
     }
   },
   {
     path: "/method/tmpJurnalBatch",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await tmpJurnalBatch(req.query));
+      wizCloudCallApi('jtransApi/tmpBatch', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/chkJurnalBatch",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await chkJurnalBatch(req.query));
+      wizCloudCallApi('jtransApi/chkBatch', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/newJurnalBatch",
     method: "get",
     handler: async (req: Request, res: Response) => {
-      res.send(await newJurnalBatch());
+      wizCloudCallApi('jtransApi/newBatch', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/issueJurnalBatch",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await issueJurnalBatch(req.query));
+      wizCloudCallApi('jtransApi/issueBatch', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/importIndexRecords",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await importIndexRecords(req.query));
+      wizCloudCallApi('IndexApi/importIndex', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/deleteIndexRecords",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await deleteIndexRecords(req.query));
+      wizCloudCallApi('IndexApi/deleteIndex', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/importBankPageRecords",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await importBankPageRecords(req.query));
+      wizCloudCallApi('BankPagesApi/importBankPage', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/exportDataRecords",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await exportDataRecords(req.query));
+      wizCloudCallApi('ExportDataApi/exportData', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/createDocument",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await createDocument(req.query));
+      wizCloudCallApi('invApi/createDoc', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/showDocument",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await showDocument(req.query));
+      wizCloudCallApi('invApi/getDoc', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/delDocument",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await delDocument(req.query));
+      wizCloudCallApi('invApi/delDocument', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/issueDoc",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await issueDoc());
+      wizCloudCallApi('invApi/issueDocument', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/crmActivities",
-    method: "get",
+    method: "post",
     handler: async (req: Request, res: Response) => {
-      res.send(await crmActivities(req.query));
+      wizCloudCallApi('crmActivitiesApi/createSchema', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/crmActivitiesTest",
-    method: "get",
-    handler: async (req: Request, res: Response) => {
-      res.send(await crmActivitiesTest(req.query));
+    method: "post",
+    handler: (req: Request, res: Response) => {
+      wizCloudCallApi('crmActivitiesTest/createSchema', req.body).then(r => res.send(r));
     }
   },
   {
     path: "/method/CompaniesForToken",
     method: "get",
-    handler: async (req: Request, res: Response) => {
-      res.send(await CompaniesForToken());
+    handler: (req: Request, res: Response) => {
+      wizCloudCallApi('CompanyListToTokenApi/TokenCompanies', req.body).then(r => res.send(r));
     }
   }
 ];

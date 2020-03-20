@@ -16,6 +16,7 @@ process.on("unhandledRejection", e => {
 });
 
 const app: express.Application = express();
+
 applyMiddleware(middleware, app);
 applyRoutes(routes, app);
 applyMiddleware(errorHandlers, app);
