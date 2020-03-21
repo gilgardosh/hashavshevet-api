@@ -1,16 +1,16 @@
 import express from "express";
 import http from "http";
-import { applyMiddleware, applyRoutes } from "./utils";
 import middleware from "./middleware";
-import routes from "./services";
 import errorHandlers from "./middleware/errorHandlers";
+import routes from "./services";
+import { applyMiddleware, applyRoutes } from "./utils";
 
-process.on("uncaughtException", e => {
+process.on("uncaughtException", (e) => {
   console.log(e);
   process.exit(1);
 });
 
-process.on("unhandledRejection", e => {
+process.on("unhandledRejection", (e) => {
   console.log(e);
   process.exit(1);
 });
@@ -25,5 +25,5 @@ const server = http.createServer(app);
 const { PORT = 3000 } = process.env;
 
 server.listen(PORT, () =>
-  console.log("Server is running http://localhost:" + PORT)
+  console.log("Server is running http://localhost:" + PORT),
 );

@@ -1,26 +1,27 @@
-const request = require("request"); //NEED TO INSTALL THIS FOR request-promise !!!
-require("dotenv").config();
+import { config } from "dotenv";
+import fetch from "fetch";
 
-let wizKey = process.env.WIZ_KEY, //copied from apiPermits.html
-  wizServer = "lb1.wizcloud.co.il",
-  company = process.env.WIZ_COMPANY; //wizcloud server domain, defaults to wizcloud.co.il;
+config();
+const fetchUrl = fetch.fetchUrl;
+const wizKey = process.env.WIZ_KEY; // copied from apiPermits.html
+const wizServer = "lb1.wizcloud.co.il";
+const company = process.env.WIZ_COMPANY; // wizcloud server domain, defaults to wizcloud.co.il;
 
-//ensure authentication
-function wizCloudAuth() {
-  let p = new Promise((resolve, reject) => {
+// ensure authentication
+export function wizCloudAuth() {
+  const p = new Promise((resolve, reject) => {
     if (!wizKey || !wizServer) {
       reject({ reason: "call init() first " });
       return;
     }
-    let url = `https://${wizServer}/createSession/${wizKey}/${company}`;
-
-    request.get(url, function(error, response, body) {
-      if (error || response.statusCode != 200) {
-        console.log("error:", error); // Print the error if one occurred
+    const url = `https://${wizServer}/createSession/${wizKey}/${company}`;
+    fetchUrl(url, async (error, response, body) => {
+      if (error != null) {
+        console.log("error:", error.toString()); // Print the error if one occurred
         reject({ reason: "auth http fail", url, err: error });
         return;
       }
-      resolve(body);
+      resolve(await body.toString());
     });
   });
 
@@ -28,32 +29,32 @@ function wizCloudAuth() {
 }
 
 export async function wizCloudCallApi(apiPath, data) {
-  let p = new Promise(async (resolve, reject) => {
+  const p = new Promise(async (resolve, reject) => {
     wizCloudAuth()
-      .then(result => {
-        let wizAuthToken = result;
-
-        let options = {
-          url: `https://${wizServer}/${apiPath}`,
+      .then((result) => {
+        const wizAuthToken = result;
+        const url = `https://${wizServer}/${apiPath}`;
+        const options = {
+          form: data,
           headers: {
-            Authorization: `Bearer ${wizAuthToken}`
+            Authorization: `Bearer ${wizAuthToken}`,
           },
-          form: data
+          method: "POST",
         };
 
-        request.post(options, function(error, response) {
+        fetchUrl(url, options, (error, response, body) => {
           if (error) {
             console.log(error);
             reject(error);
           } else {
-            resolve(response);
+            resolve(body.toString());
           }
         });
-      }, error => {
+      }, (error) => {
         console.log("ERR12", error);
         throw new Error("auth error");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log("ERR12", e);
         throw new Error("auth error");
       });
