@@ -4,9 +4,9 @@ info:
   title: WizCloud Authentication
   description: ensure authentication
 servers:
-  - url: https://lb1.wizcloud.co.il/createSession/
+  - url: https://lb1.wizcloud.co.il
 paths:
-  /{wizKey}/{company}:
+  /createSession/{wizKey}/{company}:
     get:
       description: Returns a Token
       parameters:
@@ -19,7 +19,7 @@ paths:
         - in: path
           name: company
           required: true
-          scheme:
+          schema:
             $ref: "#components/parameters/company"
       responses:
         "200":
@@ -28,21 +28,24 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: e923e7123e6c3d976c16cd667dfb344af4d3df11365eb08e93c663dd6f02dfd405f8465ecc27da556bba10944fbdb33ed2121d62d8da7566a405369840bac23d222266b1fcc9b5114331530e5d1c215fd0b3e37a16ecb9fda7e357796c39b65bb0d320e05138ae280ead60faaf9df08e
+                example: "e923e7123e6c3d976c16cd667dfb346tf4d3df11365eb08e93c663dd6f02dfd424g8465ecc27da556bba10944fbdb33ed436ud62d8da7566a405369840bac23d222266b1fcc9b5114331530e5d1c215fd0b3e37a16ecb9fda7e357796c39b65bb0d320e05138ae280ead60faaf9df08e"
         "400":
           description: iligal gmail
           content:
             text/plain:
-              type: string
+              schema:
+                type: string
 components:
   parameters:
-    - name: wizKey
+    wizKey:
+      name: wiz_key
       in: path
       description: copied from apiPermits.html
       required: true
       schema:
         type: string
-    - name: company
+    company:
+      name: company
       in: path
       description: copied from apiPermits.html
       required: true

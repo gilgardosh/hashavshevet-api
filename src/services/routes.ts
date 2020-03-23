@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { wizCloudCallApi } from "../utils/wizCloud";
+import { wizCloudTest } from "../utils/wizcloud-test";
 
 export default [
   {
@@ -190,5 +191,12 @@ export default [
     },
     method: "post",
     path: "/method/crmActivitiesTest",
+  },
+  {
+    handler: (req: Request, res: Response) => {
+      wizCloudTest().then((r) => res.send(r));
+    },
+    method: "get",
+    path: "/test",
   },
 ];

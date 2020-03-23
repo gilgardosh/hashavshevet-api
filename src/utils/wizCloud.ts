@@ -1,5 +1,6 @@
 import { config } from "dotenv";
 import fetch from "fetch";
+const request = require("request");
 
 config();
 const fetchUrl = fetch.fetchUrl;
@@ -15,14 +16,25 @@ export function wizCloudAuth() {
       return;
     }
     const url = `https://${wizServer}/createSession/${wizKey}/${company}`;
-    fetchUrl(url, async (error, response, body) => {
-      if (error != null) {
-        console.log("error:", error.toString()); // Print the error if one occurred
-        reject({ reason: "auth http fail", url, err: error });
-        return;
-      }
-      resolve(await body.toString());
-    });
+    // fetchUrl(url, async (error, response, body) => {
+    //   if (error != null) {
+    //     console.log("error:", error.toString()); // Print the error if one occurred
+    //     reject({ reason: "auth http fail", url, err: error });
+    //     return;
+    //   };
+    //   console.log("auth res: ",body.toString());
+      
+    //   resolve(await body.toString());
+    // });
+    request(url, async (error, response, body) => {
+			if (error || response.statusCode != 200) {
+				console.log("error:", error); // Print the error if one occurred
+				reject({ reason: "auth http fail", url, err: error });
+				return;
+			}
+			console.log("wizAuthToken",response.statusCode,body)
+			resolve(await body);
+		});
   });
 
   return p;
@@ -40,14 +52,14 @@ export async function wizCloudCallApi(apiPath, data) {
             Authorization: `Bearer ${wizAuthToken}`,
           },
           method: "POST",
+          url: url,
         };
-
-        fetchUrl(url, options, (error, response, body) => {
+        request.post(options, function(error, response, body) {
           if (error) {
             console.log(error);
             reject(error);
           } else {
-            resolve(body.toString());
+            resolve(body);
           }
         });
       }, (error) => {
