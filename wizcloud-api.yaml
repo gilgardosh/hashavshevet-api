@@ -1,53 +1,508 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: WizCloud Authentication
-  description: ensure authentication
+  title: "WizCloud API specification"
+  description: "An API that allows interacting with Hashavshevet accounts"
+  # termsOfService: "" #enter URL
+  # contact: #enter contact info
+  #   name: ""
+  #   url: ""
+  #   email: ""
+  # license: #if needed
+  #   name: ""
+  #   url: ""
 servers:
-  - url: https://lb1.wizcloud.co.il
+  - url: "https://lb1.wizcloud.co.il"
+    description: "main database server"
 paths:
-  /createSession/{wizKey}/{company}:
+  "/createSession/{wizKey}/{company}":
     get:
-      description: Returns a Token
+      summary: "Authentication endpoint. Returns a Token"
+      tags:
+        - "Auth"
+      operationId: "getAuthToken"
       parameters:
-        - in: path
-          name: wizKey
-          required: true
-          schema:
-            $ref: '#components/parameters/wizKey'
-          description: The user ID
-        - in: path
-          name: company
-          required: true
-          schema:
-            $ref: "#components/parameters/company"
+        - $ref: "#/components/parameters/wizKey"
+        - $ref: "#/components/parameters/company"
       responses:
         "200":
-          description: Successful response
+          description: "Successful response"
           content:
             text/plain:
               schema:
                 type: string
-                example: "e923e7123e6c3d976c16cd667dfb346tf4d3df11365eb08e93c663dd6f02dfd424g8465ecc27da556bba10944fbdb33ed436ud62d8da7566a405369840bac23d222266b1fcc9b5114331530e5d1c215fd0b3e37a16ecb9fda7e357796c39b65bb0d320e05138ae280ead60faaf9df08e"
+                example: "5fw9a9d4jf69c4b4e1ccf486e176d26f"
+          links:
+            getWizAuthToken:
+              description: ""
+              operationId: "getToken"
+              parameters:
+                wuzAuthToken: $response.body
         "400":
-          description: iligal gmail
+          description: "illegal gmail"
           content:
             text/plain:
               schema:
                 type: string
+  "/CompanyListToTokenApi/TokenCompanies":
+    post:
+      summary: "Get Companies List"
+      tags:
+        - "companies"
+        - "Get"
+      security:
+        - wizAuth: []
+      operationId: "CompaniesForToken"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      responses:
+        #TODO map possible responses
+        "200":
+          description: "Repdata: companies list"
+          content:
+            application/json:
+              schema:
+                type: object
+                example: "{'repdata':[{'Company_File_Name':'wizdb493n4','Company_Name':'חברה של עדנה ','Comp_Vatnum':'999999999'}]}"
+  "/api/napi":
+    post:
+      summary: "Get User Details"
+      tags:
+        - "user"
+      security:
+        - wizAuth: []
+      operationId: "getUserData"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      responses:
+        #TODO map possible responses
+        "304":
+          description: "User Data"
+          content:
+            application/json:
+              schema:
+                type: object
+                example: "{'session':{'cid':'wizdb493n4','user':'gilgardosh@gmail.com','user_id':32,'company_id':4,'branch':1,'use_name':'גיל גרדוש - משתמש נוסף לאורי גולדשטיין ','wizcomp_no':'493','company_name':'חברה של עדנה '},'data':[]}"
+  "/jtransApi/tmpBatch":
+    post:
+      summary: "Import transactions, check errors and input batch"
+      description: "Imports the transactions to a new or already existing temporary batch. You may check for errors or input the batch into the permanent storage (if no errors were found)."
+      tags:
+        - "Batch"
+        - "Import"
+      security:
+        - wizAuth: []
+      operationId: "tmpJurnalBatch"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: "#/components/schemas/tmpJurnalBatchBody"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+  "/jtransApi/chkBatch":
+    post:
+      summary: "Checks if there are errors in the batch"
+      tags:
+        - "Batch"
+        - "Check"
+      security:
+        - wizAuth: []
+      operationId: "chkJurnalBatch"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - batchNo
+              properties:
+                batchNo:
+                  allOf:
+                    - $ref: "#/components/schemas/batchNo"
+                    - description: "check the batch having this number"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+  "/jtransApi/newBatch":
+    post:
+      summary: "Opens a new batch and return the number"
+      tags:
+        - "Batch"
+        - "New"
+      security:
+        - wizAuth: []
+      operationId: "newJurnalBatch"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+  "/jtransApi/issueBatch":
+    post:
+      summary: "Checks and inputs the temporary batch into the permanent storage."
+      tags:
+        - "Batch"
+        - "Issue"
+      security:
+        - wizAuth: []
+      operationId: "issueJurnalBatch"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - batchNo
+              properties:
+                batchNo:
+                  allOf:
+                    - $ref: "#/components/schemas/batchNo"
+                    - description: "Input the batch having this number"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+                
+  "/IndexApi/importIndex":
+    post:
+      summary: "Imports or updates records to the selected index"
+      tags:
+        - "Index"
+        - "Import"
+      security:
+        - wizAuth: []
+      operationId: "importIndexRecords"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            #TODO check if all parameters are required, and api validation
+            schema:
+              $ref: "#/components/schemas/importIndexRecordshBody"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+                
+  "/invApi/createDoc":
+    post:
+      summary: "Imports and updates temporary documents"
+      description: "Imports and updates new or already existing temporary documents. You may check for errors or issue and input the documents into the permanent storage (if no errors were found)."
+      tags:
+        - "Document"
+        - "Import"
+      security:
+        - wizAuth: []
+      operationId: "createDocument"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            #TODO check if all parameters are required, and api validation
+            schema:
+              $ref: "#/components/schemas/createDocumentBody"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+
+  "/invApi/issueDocument":
+    post:
+      summary: "Checks if there are errors in the batch"
+      description: "Check issue and input the document to the permanent storage."
+      tags:
+        - "Document"
+        - "Issue"
+      security:
+        - wizAuth: []
+      operationId: "issueDoc"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - stockID
+              properties:
+                stockID:
+                  $ref: "#/components/schemas/stockID"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+
+  "/invApi/delDocument":
+    post:
+      summary: "Delete document from tables"
+      tags:
+        - "Document"
+        - "Delete"
+      security:
+        - wizAuth: []
+      operationId: "delDocument"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - stockID
+              properties:
+                stockID:
+                  $ref: "#/components/schemas/stockID"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+
+  "/invApi/getDoc":
+    post:
+      summary: "Show document data"
+      tags:
+        - "Document"
+        - "Get"
+      security:
+        - wizAuth: []
+      operationId: "showDocument"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              required:
+                - stockID
+              properties:
+                stockID:
+                  $ref: "#/components/schemas/stockID"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+
 components:
   parameters:
     wizKey:
-      name: wiz_key
+      name: "wizKey"
       in: path
-      description: copied from apiPermits.html
+      description: "The user ID. User token issued by the main administrator (the administrator that opens the company library)."
       required: true
       schema:
         type: string
     company:
-      name: company
+      name: "company"
       in: path
-      description: copied from apiPermits.html
+      description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"
       required: true
       schema:
         type: string
+
+  schemas:
+    batchNo:
+      type: integer
+      #TODO define object. min, max, etc.
+    
+    stockID:
+      type: integer
+      #TODO define object. min, max, etc.
+
+    tmpJurnalBatchBody:
+      type: object
+      required:
+        - insertolastb
+        - batchNo
+        - check
+        - issue
+        - rows
+      properties:
+        insertolastb:
+          type: boolean
+          default: true
+          description: "Insert the transactions to the last open temporary batch. If false, open a new batch. True overrides batchNo."
+        batchNo:
+          allOf:
+            - $ref: "#/components/schemas/batchNo"
+            - description: "Insert the transactions to the temporary batch having this number. If no such temporary batch exists, open a new batch."
+        check:
+          type: boolean
+          default: true
+          description: "check the batch for errors and return the batch status"
+        issue:
+          type: boolean
+          default: false
+          description: "input the temporary batch into the permanent storage."
+        rows:
+          type: object
+          #TODO define the object and create schema
+    
+    importIndexRecordshBody:
+      type: object
+      required:
+        - myindex
+        - insertnew
+        - rows
+      properties:
+        myindex:
+          type: string
+          description: "acc- for accounts, itm- for items"
+          enum:
+            - "acc"
+            - "itm"
+        insertnew:
+          type: boolean
+          default: true
+          description: "Allow inserting new records. If false only update is allowed"
+        rows:
+          type: object
+          #TODO define the object and create schema
+  
+    createDocumentBody:
+      type: object
+      required:
+        - issueStock
+        - deleteTemp
+        - rows
+      properties:
+        issueStock:
+          type: boolean
+          description: "issue the document"
+        deleteTemp:
+          type: boolean
+          description: "if errors found, delete document or not"
+        rows:
+          type: object
+          #TODO define the object and create schema
+
+  securitySchemes:
+    wizAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: string
+
+  # responses:

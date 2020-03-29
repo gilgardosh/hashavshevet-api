@@ -34,8 +34,9 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.7",
+    "fetch": "^1.1.0",
     "request": "^2.88.2",
-    "typescript-fetch-api": "file:gen/api"
+    "wizcloud-api": "^1.0.14"
   },
   "repository": {
     "type": "git",

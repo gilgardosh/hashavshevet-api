@@ -1,0 +1,60 @@
+openapi: 3.0.0
+info:
+  version: "1.0.0"
+  title: "WizCloud API specification"
+  description: "An API that allows interacting with Hashavshevet accounts"
+  termsOfService: "" #enter URL
+  contact: #enter contact info
+    name: ""
+    url: ""
+    email: ""
+  license: #if needed
+    name: ""
+    url: ""
+
+servers:
+  - url: https://lb1.wizcloud.co.il
+    description: main server
+
+paths:
+  /createSession/{wizKey}/{company}:
+    get:
+      description: Authentication endpoint. Returns a Token
+      parameters:
+        - name: wizKey
+          in: path
+          description: User token issued by the main administrator (the administrator that opens the company library).
+          required: true
+          schema:
+            $ref: "#/components/parameters/wizKey"
+        - in: path
+          name: company
+          description: company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI
+          required: true
+          schema:
+            $ref: "#/components/parameters/company"
+      headers:
+
+      responses:
+        200:
+          description: Successful response
+          content:
+
+
+components:
+  parameters:
+    wizKey:
+    name: wiz_key
+    in: path
+    description: copied from apiPermits.html
+    required: true
+    schema:
+      type: string
+    company:
+    name: company
+    in: path
+    description: copied from apiPermits.html
+    required: true
+    schema:
+      type: string
+  
