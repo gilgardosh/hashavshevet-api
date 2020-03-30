@@ -405,6 +405,77 @@ paths:
               schema:
                 type: object
                 example: ""
+                
+  "/BankPagesApi/importBankPage":
+    post:
+      summary: "Import  or update records to chosen index"
+      tags:
+        - "BankPages"
+        - "Import"
+      security:
+        - wizAuth: []
+      operationId: "importBankPageRecords"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            #TODO check if all parameters are required, and api validation
+            schema:
+              type: object
+              required:
+                - rows
+              properties:
+                rows:
+                  type: object
+                  #TODO define the object and create schema
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
+  
+  "/ExportDataApi/exportData":
+    post:
+      summary: "Export data according to the selected report"
+      tags:
+        - "Export"
+      security:
+        - wizAuth: []
+      operationId: "exportDataRecords"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            #TODO check if all parameters are required, and api validation
+            schema:
+              $ref: "#/components/schemas/exportDataRecordsBody"
+      responses:
+        #TODO map possible responses
+        "200":
+          description: ""
+          content:
+            "*/*":
+              schema:
+                type: object
+                example: ""
 
 components:
   parameters:
@@ -424,13 +495,569 @@ components:
         type: string
 
   schemas:
+    AccountKey:
+      type: string
+      description: "The customer or supplier account key"
+      maximum: 15
+      example: "40001"
+
+    AccountName:
+      type: string
+      description: "name acc 111"
+      maximum: 50
+      example: "222"
+
+    Address:
+      type: string
+      description: "Address"
+      maximum: 50 #in StockData can be 100
+
+    Agent:
+      type: integer
+      format: int32
+      description: "Salesperson"
+      example: "1"
+    
+    AssignKey:
+      type: string
+      maximum: 15
+      description: "Central account key (existing account)"
+      example: "777"
+    
+    AverageSupplyPeriod:
+      type: number
+      format: float
+      description: "Average supply time"
+    
+    AvgLatePay:
+      type: integer
+      format: int32
+      description: "Average delay of payments"
+
+    BalanceCode:
+      type: integer
+      format: int32
+      description: "Code for the balance and profit and loss report"
+
+    BankAccount:
+      type: string
+      maximum: 20
+      description: "Bank account #"
+
+    BankCode:
+      type: string
+      maximum: 3
+      description: "Bank code"
+
+    BarCode:
+      type: string
+      maximum: 20
+      description: "Barcode"
+
     batchNo:
       type: integer
-      #TODO define object. min, max, etc.
-    
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      description: "Batch number"
+      example: "555"
+
+    BranchCode:
+      type: string
+      maximum: 5
+      description: "Bank branch code"
+
+    City:
+      type: string
+      maximum: 20 #in StockData could be 50
+      description: "City"
+
+    CommitionPrc:
+      type: number
+      format: float
+      description: "% commission"
+
+    CostCode:
+      type: integer
+      format: int32
+      description: "Existing cost center code"
+      example: "22"
+
+    CostOfShortage:
+      type: number
+      format: float
+      description: "Cost of shortage"
+
+    Country:
+      type: string
+      maximum: 20
+      description: "Country"
+
+
+    CreditTermsCode:
+      type: integer
+      format: int32
+      description: "Split payment code"
+
+    CredName:
+      type: string
+      maximum: 50
+      description: "Name of the main credit account"
+      example: "222 name"
+
+    Currency:
+      type: string
+      maximum: 5
+      description: "List price currency"
+
+    CurrencyCode:
+      type: string
+      maximum: 5
+      description: "List price currency"
+      example: "$"
+
+    CustomerNote:
+      type: string
+      maximum: 250
+      description: "Message for the customer"
+
+    DatF3:
+      type: string #maybe can validate here: mm/dd/yyyy
+      description: "Additional date"
+      example: "mm/dd/yyyy"
+
+    DebitCredit:
+      type: string
+      maximum: 1
+      enum:
+        - "0"
+        - "1"
+      description: "Debit=1, Credit=0"
+      example: "1"
+
+    DebName:
+      type: string
+      maximum: 50
+      description: "Name of the main debit account"
+      example: "111 name"
+
+    DeductFile:
+      type: string
+      maximum: 20
+      description: "Income file number"
+
+    DeductionPrc:
+      type: number
+      format: float
+      description: "% withholding tax"
+      example: "10.5"
+
+    DeductionValid:
+      type: string #maybe can validate here: mm/dd/yyyy
+      description: "Validity date of the % withholding tax"
+      example: "28/02/2019"
+
+    DefaultWarehouse:
+      type: integer
+      format: int32
+      description: "Warehouse"
+
+    DemandPerDay:
+      type: number
+      format: float
+      description: "Average demand per day"
+
+    DemandPerMonth:
+      type: number
+      format: float
+      description: "Average demand per month"
+
+    Description:
+      type: string
+      maximum: 250
+      description: "Details"
+
+    Det2:
+      type: string
+      maximum: 50
+      description: "Additional remarks"
+
+    Details:
+      type: string
+      maximum: 50 #in StockData could be 250
+      description: "Details, Remarks"
+      example: "my details 11"
+
+    DifferAcc:
+      type: string
+      maximum: 15
+      description: "Account key for small differences (existing account)"
+
+    DiscountCode:
+      type: integer
+      format: int32
+      description: "Discount code"
+
+    DiscountPrc:
+      type: number
+      format: float #make sure Items_Data accepts not only INT
+      description: "% of sale promotion or general discount "
+      example: "10"
+
+    DocCurr:
+      type: string
+      maximum: 5
+      description: "Default value for foreign currency"
+
+    DocNumber:
+      type: integer
+      format: int32
+      description: "Document number. When the document numeration is unchangeable, the number is determined when the document is issued."
+      example: "1"
+
+    DocumentID:
+      type: integer
+      format: int32
+      description: "Document type (according to the DocumentDef table)"
+      example: "1"
+
+    DueDate:
+      type: string #maybe can validate here: mm/dd/yyyy
+      description: "Due date"
+      example: "30/01/2018"
+
+    DutyPrc:
+      type: number
+      format: float
+      description: "% customs"
+
+    Email:
+      type: string
+      maximum: 50
+      description: "E-Mail address "
+
+    Fax:
+      type: string
+      maximum: 30
+      description: "Fax"
+
+    Filter:
+      type: string
+      maximum: 5  #in Items Data could be 10
+      description: "Filtering"
+
+    FixedOrderCost:
+      type: number
+      format: float
+      description: "Fix cost of order"
+
+    ForignName:
+      type: string
+      maximum: 100
+      description: "Item name for export documents"
+
+    FullName:
+      type: string
+      maximum: 50
+      description: "Full Name"
+      example: "8888 name new"
+
+    ImpTaxPrc:
+      type: number
+      format: float
+      description: "% sales tax - import"
+
+    ItemKey:
+      type: string
+      maximum: 20
+      description: "Item key"
+      example: "33"
+
+    ItemName:
+      type: string
+      maximum: 100
+      description: "Item name"
+      example: "name item 33"
+
+    LastPurchDate:
+      type: string #maybe can validate here: mm/dd/yyyy
+      description: "Last purchasing price date"
+
+    LineNoForSorting:
+      type: integer
+      format: int32
+      description: "Line ID"
+
+    Localization:
+      type: string
+      maximum: 50
+      description: "Localization (in the storehouse)"
+
+    MainAccount:
+      type: integer
+      format: int32
+      description: "Code of the main account"
+
+    Masav:
+      type: string
+      maximum: 1
+      enum:
+        - "0"
+        - "1"
+      description: "Transfer to MASAV"
+
+    MatchCurr:
+      type: string 
+      maximum: 5
+      description: "Currency for reconciliation (when the price is in foreign currency) "
+
+    MaxCredit:
+      type: number
+      format: float
+      description: "Credit limit"
+
+    MaxCreditCurrency:
+      type: string
+      maximum: 5
+      description: "Credit currency"
+
+    MaxObligo:
+      type: number
+      format: float
+      description: "Credit risk limit"
+
+    MaxObligoCurrency:
+      type: string
+      maximum: 5
+      description: "Credit risk currency"
+
+    MaxStoragePeriod:
+      type: number
+      format: float
+      description: "Maximum storage period"
+
+    Osek874:
+      type: string
+      maximum: 9
+      description: "VAT registration number"
+      example: "123456789"
+
+    Phone:
+      type: string
+      maximum: 30
+      description: "Phone"
+
+    Price:
+      type: number
+      format: float
+      description: "Price"
+      example: "1050"
+
+    PurchAcc:
+      type: string
+      maximum: 15
+      description: "Expense account (existing account key)"
+
+    PurchaseUnit:
+      type: string
+      maximum: 5
+      description: "Unit measure for purchase"
+
+    PurchCurrency:
+      type: string
+      maximum: 5
+      description: "Purchasing price currency"
+
+    PurchPrice:
+      type: integer
+      format: float
+      description: "Last purchasing price"
+
+    Quant:  #merge with Quantity
+      type: number
+      format: float
+      description: "Quantity"
+
+    Quantity:
+      type: number
+      format: float
+      description: "Quantity"
+      example: "5"
+
+    Rate:
+      type: number
+      format: float
+      description: "Currency rate"
+      example: "3.7"
+
+    Ref2:
+      type: integer
+      format: int32
+      description: "Reference-2"
+
+    Ref3:
+      type: integer
+      format: int32
+      description: "Reference-3"
+
+    Reference:
+      type: integer
+      format: int32
+      description: "Reference"
+      example: "125"
+
+    Remarks:
+      type: string
+      maximum: 250
+      description: "Remarks"
+
+    ReorderQuant:
+      type: number
+      format: float
+      description: "Point of order"
+
+    SalesAcc:
+      type: string
+      maximum: 15
+      description: "Sales account (existing account key)"
+
+    SalesUnit:
+      type: string
+      maximum: 5
+      description: "Unit measure for sales"
+
+    SortGroup:
+      type: integer
+      format: int32
+      description: "Sorting code"
+      example: "258"
+
     stockID:
       type: integer
-      #TODO define object. min, max, etc.
+      format: int32
+      minimum: 1
+      maximum: 2147483647
+      description: "ID in the stock table. Required when updating an existing document."
+      example: "100"
+
+    StockLevel:
+      type: number
+      format: float
+      description: "Inventory level"
+
+    StorageCost:
+      type: number
+      format: float
+      description: "Cost of storage"
+
+    SuF:
+      type: number
+      format: float
+      description: "Total NIS amount (credit or debit)"
+      example: "1234.56"
+
+    SuFDlr:
+      type: number
+      format: float
+      description: "Total amount in foreign currency"
+      example: "20.00"
+
+    SumDiscount:
+      type: number
+      format: float 
+      description: "The discount amount"
+
+    TaxFileNum:
+      type:  string
+      maximum: 20
+      description: "VAT registration number"
+
+    Tftal:
+      type: number
+      format: float
+      description: "Total amount"
+      example: "2100"
+
+    TFtalDiscount:
+      type: number
+      format: float
+      description: "% customer discount"
+
+    TransCredID:
+      type: string
+      maximum: 15
+      description: "Main credit account key"
+      example: "40001"
+
+    TransDebID:
+      type: string
+      maximum: 15
+      description: "Main debit account key"
+      example: "777"
+
+    TransType:
+      type: string
+      maximum: 3
+      description: "Transaction type code"
+      example: "חל"
+
+    ValueDate:
+      type: string #maybe can validate here: mm/dd/yyyy
+      description: "Date"
+      example: "30/01/2018"
+
+    VatExampt:
+      type: string
+      maximum: 1
+      enum:
+        - "0"
+        - "1"
+      description: "VAT exempt"
+
+    VatFreeSalesAcc:
+      type: string
+      maximum: 15
+      description: "VAT exempt sales account (existing account)"
+
+    Volume:
+      type: number
+      format: float
+      description: "Volume"
+
+    Warehouse:
+      type: integer
+      format: int32
+      description: "Warehouse"
+      example: "1"
+
+    WebSite:
+      type: string
+      maximum: 250
+      description: "Web site"
+
+    Weigt:
+      type: number
+      format: float
+      description: "Weight"
+
+    WieghtItem:
+      type: string
+      maximum: 1
+      enum:
+        - "0"
+        - "1"
+      description: "Weightable item (1- positive)"
+
+    WorF:
+      type: string
+      maximum: 15
+      description: "Occupation"
+
+    Zip:
+      type: string
+      maximum: 10
+      description: "Zip code"
+      
 
     tmpJurnalBatchBody:
       type: object
@@ -498,6 +1125,18 @@ components:
         rows:
           type: object
           #TODO define the object and create schema
+          
+    exportDataRecordsBody:
+      type: object
+      required:
+        - myDBname
+        - datafile
+      properties:
+        myDBname:
+          $ref: "#/components/parameters/company"
+        datafile:
+          type: object
+          #TODO define the object and create schema      
 
   securitySchemes:
     wizAuth:
