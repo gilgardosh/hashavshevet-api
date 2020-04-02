@@ -23,7 +23,12 @@ paths:
       operationId: "getAuthToken"
       parameters:
         - $ref: "#/components/parameters/wizKey"
-        - $ref: "#/components/parameters/company"
+        - in: path
+          name: company
+          required: true
+          description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"
+          schema:
+            $ref: "#/components/schemas/company"
       responses:
         "200":
           description: "Successful response"
@@ -31,13 +36,7 @@ paths:
             text/plain:
               schema:
                 type: string
-                example: "5fw9a9d4jf69c4b4e1ccf486e176d26f"
-          links:
-            getWizAuthToken:
-              description: ""
-              operationId: "getToken"
-              parameters:
-                wuzAuthToken: $response.body
+                example: "48031565e80674f0e946e2acab7194d0756740e8e4594983dabd9d64cb42170361a9b6129c087x4g12a2081838164fed9935b5e7cffc5f449ed222d8fe6888ecb02e41aaabcce85687cc5a5f57313c62331718c9916755ef3fda4e4dc6fcd30cf64c2791608e96860cef69e125d9004d"
         "400":
           description: "illegal gmail"
           content:
@@ -226,7 +225,6 @@ paths:
               schema:
                 type: object
                 example: ""
-                
   "/IndexApi/importIndex":
     post:
       summary: "Imports or updates records to the selected index"
@@ -259,7 +257,6 @@ paths:
               schema:
                 type: object
                 example: ""
-                
   "/invApi/createDoc":
     post:
       summary: "Imports and updates temporary documents"
@@ -293,7 +290,6 @@ paths:
               schema:
                 type: object
                 example: ""
-
   "/invApi/issueDocument":
     post:
       summary: "Checks if there are errors in the batch"
@@ -331,7 +327,6 @@ paths:
               schema:
                 type: object
                 example: ""
-
   "/invApi/delDocument":
     post:
       summary: "Delete document from tables"
@@ -368,7 +363,6 @@ paths:
               schema:
                 type: object
                 example: ""
-
   "/invApi/getDoc":
     post:
       summary: "Show document data"
@@ -405,7 +399,6 @@ paths:
               schema:
                 type: object
                 example: ""
-                
   "/BankPagesApi/importBankPage":
     post:
       summary: "Import  or update records to chosen index"
@@ -444,7 +437,6 @@ paths:
               schema:
                 type: object
                 example: ""
-  
   "/ExportDataApi/exportData":
     post:
       summary: "Export data according to the selected report"
@@ -486,13 +478,6 @@ components:
       required: true
       schema:
         type: string
-    company:
-      name: "company"
-      in: path
-      description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"
-      required: true
-      schema:
-        type: string
 
   schemas:
     AccountKey:
@@ -508,7 +493,7 @@ components:
     Address:
       type: string
       description: "Address"
-      maximum: 50 #in StockData can be 100
+      maximum: 50 #NOTE: in StockData can be 100
     Agent:
       type: integer
       format: int32
@@ -548,7 +533,6 @@ components:
       format: int32
       minimum: 1
       maximum: 2147483647
-      description: "Batch number"
       example: "555"
     Branch:
       type: integer
@@ -560,12 +544,16 @@ components:
       description: "Bank branch code"
     City:
       type: string
-      maximum: 20 #in StockData could be 50
+      maximum: 20 #NOTE: in StockData could be 50
       description: "City"
     CommitionPrc:
       type: number
       format: float
       description: "% commission"
+    company:
+      type: string
+      maximum: 30
+      description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"
     CostCode:
       type: integer
       format: int32
@@ -602,7 +590,7 @@ components:
       maximum: 250
       description: "Message for the customer"
     DatF3:
-      type: string #maybe can validate here: mm/dd/yyyy
+      type: string #TODO: maybe can validate here: mm/dd/yyyy
       description: "Additional date"
       example: "mm/dd/yyyy"
     DebitCredit:
@@ -653,7 +641,7 @@ components:
       description: "Additional remarks"
     Details:
       type: string
-      maximum: 50 #in StockData could be 250
+      maximum: 50 #NOTE: in StockData could be 250
       description: "Details, Remarks"
       example: "my details 11"
     DifferAcc:
@@ -684,7 +672,7 @@ components:
       description: "Document type (according to the DocumentDef table)"
       example: "1"
     DueDate:
-      type: string #maybe can validate here: mm/dd/yyyy
+      type: string #TODO: maybe can validate here: mm/dd/yyyy
       description: "Due date"
       example: "30/01/2018"
     DutyPrc:
@@ -701,7 +689,7 @@ components:
       description: "Fax"
     Filter:
       type: string
-      maximum: 5  #in Items Data could be 10
+      maximum: 5  #NOTE: in Items Data could be 10
       description: "Filtering"
     FixedOrderCost:
       type: number
@@ -731,7 +719,7 @@ components:
       description: "Item name"
       example: "name item 33"
     LastPurchDate:
-      type: string #maybe can validate here: mm/dd/yyyy
+      type: string #TODO: maybe can validate here: mm/dd/yyyy
       description: "Last purchasing price date"
     LineNoForSorting:
       type: integer
@@ -806,7 +794,7 @@ components:
       type: integer
       format: float
       description: "Last purchasing price"
-    Quant:  #merge with Quantity
+    Quant:  #TODO: merge with Quantity
       type: number
       format: float
       description: "Quantity"
@@ -912,7 +900,7 @@ components:
       description: "Transaction type code"
       example: "חל"
     ValueDate:
-      type: string #maybe can validate here: mm/dd/yyyy
+      type: string #TODO: maybe can validate here: mm/dd/yyyy
       description: "Date"
       example: "30/01/2018"
     VatExampt:
@@ -1009,7 +997,6 @@ components:
             oneOf:
               - $ref: "#/components/schemas/accountsTrans"
               - $ref: "#/components/schemas/itemsTrans"
-
   
     createDocumentBody:
       type: object
@@ -1036,7 +1023,7 @@ components:
         - datafile
       properties:
         myDBname:
-          $ref: "#/components/parameters/company"
+          $ref: "#/components/schemas/company"
         datafile:
           type: object
           #TODO define the object and create schema      
@@ -1090,7 +1077,9 @@ components:
         TransType:
           $ref: "#/components/schemas/TransType"
         ValueDate:
-          $ref: "#/components/schemas/ValueDate"
+          type: string #TODO: different from other date patterns: yyyy-mm-dd
+          description: "Date"
+          example: "2019-11-30"
         moves:
           type: array
           items:
@@ -1362,8 +1351,6 @@ components:
           $ref: "#/components/schemas/Tftal"
         Warehouse:
           $ref: "#/components/schemas/Warehouse"
-
-
 
   securitySchemes:
     wizAuth:

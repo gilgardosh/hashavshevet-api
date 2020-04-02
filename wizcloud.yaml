@@ -1,60 +1,78 @@
 openapi: 3.0.0
 info:
-  version: "1.0.0"
+  version: 1.0.0
   title: "WizCloud API specification"
   description: "An API that allows interacting with Hashavshevet accounts"
-  termsOfService: "" #enter URL
-  contact: #enter contact info
-    name: ""
-    url: ""
-    email: ""
-  license: #if needed
-    name: ""
-    url: ""
-
 servers:
-  - url: https://lb1.wizcloud.co.il
-    description: main server
-
+  - url: "https://lb1.wizcloud.co.il"
+    description: "main database server"
 paths:
-  /createSession/{wizKey}/{company}:
+  "/createSession/{wizKey}/{company}":
     get:
-      description: Authentication endpoint. Returns a Token
+      summary: "Authentication endpoint. Returns a Token"
+      tags:
+        - "Auth"
+      operationId: "getAuthToken"
       parameters:
-        - name: wizKey
-          in: path
-          description: User token issued by the main administrator (the administrator that opens the company library).
-          required: true
-          schema:
-            $ref: "#/components/parameters/wizKey"
+        - $ref: "#/components/parameters/wizKey"
         - in: path
           name: company
-          description: company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI
           required: true
+          description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"
           schema:
-            $ref: "#/components/parameters/company"
-      headers:
-
+            $ref: "#/components/schemas/company"
       responses:
-        200:
-          description: Successful response
+        "200":
+          description: "Successful response"
           content:
-
+            text/plain:
+              schema:
+                type: string
+                example: "48031565e80674f0e946e2acab7194d0756740e8e4594983dabd9d64cb42170361a9b6129c087x4g12a2081838164fed9935b5e7cffc5f449ed222d8fe6888ecb02e41aaabcce85687cc5a5f57313c62331718c9916755ef3fda4e4dc6fcd30cf64c2791608e96860cef69e125d9004d"
+        "400":
+          description: "illegal gmail"
+          content:
+            text/plain:
+              schema:
+                type: string
+  "/CompanyListToTokenApi/TokenCompanies":
+    post:
+      summary: "Get Companies List"
+      tags:
+        - "companies"
+        - "Get"
+      security:
+        - wizAuth: []
+      operationId: "CompaniesForToken"
+      parameters:
+        - in: header
+          name: "Authorization"
+          schema:
+            type: string
+            default: "Bearer "
+          required: true
+      responses:
+        #TODO map possible responses
+        "200":
+          description: "Repdata: companies list"
+          content:
+            application/json:
+              schema:
+                type: object
+                example: "{'repdata':[{'Company_File_Name':'wizdb493n4','Company_Name':'חברה של עדנה ','Comp_Vatnum':'999999999'}]}"
 
 components:
   parameters:
     wizKey:
-    name: wiz_key
-    in: path
-    description: copied from apiPermits.html
-    required: true
-    schema:
-      type: string
+      name: "wizKey"
+      in: path
+      description: "The user ID. User token issued by the main administrator (the administrator that opens the company library)."
+      required: true
+      schema:
+        type: string
+
+  schemas:
     company:
-    name: company
-    in: path
-    description: copied from apiPermits.html
-    required: true
-    schema:
       type: string
-  
+      maximum: 30
+      description: "company's database name. To reveal your database name, move the mouse cursor to the company description in your company list in the UI"

@@ -1,4 +1,5 @@
 import { config } from "dotenv";
+var fetch = require("node-fetch");
 const request = require("request");
 
 config();
@@ -14,15 +15,19 @@ export function wizCloudAuth() {
       return;
     }
     const url = `https://${wizServer}/createSession/${wizKey}/${company}`;
-    request(url, (error, response, body) => {
-      if (error || response.statusCode !== 200) {
-        console.log("error:", error); // Print the error if one occurred
-        reject({ reason: "auth http fail", url, err: error });
-        return;
-      }
-      // console.log("wizAuthToken",response.statusCode,body)
-      resolve(body);
-    });
+    fetch(url)
+      .then((res) => res.text())
+        .then(async (data) => resolve(await data));
+    // TODO: add error handling, according to old code:
+    // request(url, (error, response, body) => {
+    //   if (error || response.statusCode !== 200) {
+    //     console.log("error:", error); // Print the error if one occurred
+    //     reject({ reason: "auth http fail", url, err: error });
+    //     return;
+    //   }
+    //   console.log("wizAuthToken",response.statusCode,body)
+    //   resolve(body);
+    // });
   });
 
   return p;

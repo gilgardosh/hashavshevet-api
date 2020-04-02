@@ -4,6 +4,7 @@ import middleware from "./middleware";
 import errorHandlers from "./middleware/errorHandlers";
 import routes from "./services";
 import { applyMiddleware, applyRoutes } from "./utils";
+import { json } from "body-parser";
 
 process.on("uncaughtException", (e) => {
   console.log(e);
