@@ -3,94 +3,78 @@ import { wizCloudCallApi } from "./wizCloud";
 // tmpJurnalBatch
 const trans0 = [
   {
-    CredName: "222 name",
-    DebName: "111 name",
-    DueDate: "30/01/2018",
-    TransCredID2: "222",
-    TransDebID: "111",
-    ValueDate: "30/01/2018",
+    TransType: "חל",
+    TransDebID: "30002",
+    DebName: "סימפטיה שופ",
+    TransCredID: "40001",
+    CredName: "הכנסות ממכירה בארץ - כולל מעמ",
+    Referance: "100",
+    Description: "חשבונית",
+    DueDate: "29/03/2018",
+    ValueDate: "30/03/2018",
+    suF: 1000,
+    suFDlr: 0,
+    CurrencyCode: "$",
     moves: [
       {
         AccountKey: "111",
         DebitCredit: "1",
-        SuF: 120,
-        SuFDlr: "20",
-      },
-      {
-        AccountKey: "222",
-        DebitCredit: "0",
-        SuF: 120,
-        SuFDlr: "20",
-      },
-    ],
-    suF: 120,
-    suFDlr: "20.00",
-  },
-  {
-    CurrencyCode: "$",
-    Referance: "110",
-    TransCredID: "40001",
-    TransDebID: "777",
-    TransType: "חל",
-    ValueDate: "30/01/2019",
-    moves: [
-      {
-        AccountKey: "777",
-        DebitCredit: "1",
-        SuF: 117,
-        SuFDlr: "33",
+        SuF: 1000,
+        SuFDlr: "0",
       },
       {
         AccountKey: "40001",
         DebitCredit: "0",
-        SuF: 100,
-        SuFDlr: "25",
+        SuF: 847.46,
+        SuFDlr: "0",
       },
       {
         AccountKey: "60001",
         DebitCredit: "0",
-        SuF: 17,
-        SuFDlr: "8",
-      },
+        SuF: 152.54,
+        SuFDlr: "0",
+      }
     ],
-    suF: 117,
-    suFDlr: "33",
   },
 ];
 
 const journaldata = {
   batchNo: 15,
-  check: true,
+  check: false,
   insertolastb: false,
-  issue: false,
+  issue: true,
   rows: trans0,
 };
 
 // importIndexRecords
 const trans1 = [
-  {
-    BarCode: "1234688999999",
-    DatF1: "28/02/2019",
-    IntrItem: "1",
-    ItemKey: "parit23",
-    ItemName: "parit23parit23parit23parit23",
-    Price: "123",
-    SortGroup: "123",
+	{
+    AccountKey: "1gilgilgil",
+    AssignKey:"777",
+    CostCode: "22",
+    DeductionPrc:11,
+		DeductionValid:"28/02/2019",
+		FullName: "tutu123",
+		SortGroup: "258"
+	},
+	{
+		
+    AccountKey: "8888123664",
+    CostCode: "1",
+		FullName: "8888 name new",
+		SortGroup: "1234"
   },
-  {
-    ItemKey: "ppp888656565656565",
-    ItemName: "parit2 name",
-    Price: "22",
-    SortGroup: "258",
-  },
+  // {
+  //   ItemKey: "2gilgilgil" 
+  // }
 ];
 
 const indexdata = { myindex: "acc", insertnew: true, rows: trans1 };
 
 // docdata
 const stock = {
-  AccountKey: "111",
-  AccountName: "name acc 111",
+  AccountKey: "20003",
+  AccountName: "name acc 40001",
   Agent: "1",
   Details: "my doc details",
   DiscountPrc: "10",
@@ -106,10 +90,10 @@ const stock = {
     {
       Agent: "1",
       CurrencyCode: "$",
-      Details: "my details 11",
+      Details: "my details 123",
       DiscountPrc: "5",
-      ItemKey: "11",
-      ItemName: "name item 11",
+      ItemKey: "123",
+      ItemName: "name item 123",
       Price: "1050",
       Quantity: "2",
       Rate: "3.7",
@@ -117,8 +101,8 @@ const stock = {
       Warehouse: "1",
     },
     {
-      ItemKey: "33",
-      ItemName: "name item 33",
+      ItemKey: "1202",
+      ItemName: "name item 1202",
       Price: "20",
       Quantity: "5",
       Tftal: "100",
@@ -126,20 +110,20 @@ const stock = {
   ],
 };
 
-const documentdata = { rows: stock, issueStock: false, deleteTemp: true };
+const documentdata = { rows: stock, issueStock: false, deleteTemp: false };
 
 // importBankPageRecords
 const trans2 = [
   {
-    AccountKey: "777",
+    AccountKey: "50001",
     CreditDebit: "0",
     DatF: "31/10/2019",
     Details: "trans details",
     Reference: "123",
-    SuF: "1234.56",
+    SuF: "-5445",
   },
   {
-    AccountKey: "777",
+    AccountKey: "40001",
     CreditDebit: "1",
     DatF: "28/10/2019",
     Details: "trans details 111",

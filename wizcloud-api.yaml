@@ -33,7 +33,7 @@ paths:
         "200":
           description: "Successful response"
           content:
-            text/plain:
+            text/plain: #TODO: figure out type problem with response
               schema:
                 type: string
                 example: "48031565e80674f0e946e2acab7194d0756740e8e4594983dabd9d64cb42170361a9b6129c087x4g12a2081838164fed9935b5e7cffc5f449ed222d8fe6888ecb02e41aaabcce85687cc5a5f57313c62331718c9916755ef3fda4e4dc6fcd30cf64c2791608e96860cef69e125d9004d"
@@ -60,14 +60,12 @@ paths:
             default: "Bearer "
           required: true
       responses:
-        #TODO map possible responses
         "200":
           description: "Repdata: companies list"
           content:
             application/json:
               schema:
-                type: object
-                example: "{'repdata':[{'Company_File_Name':'wizdb493n4','Company_Name':'חברה של עדנה ','Comp_Vatnum':'999999999'}]}"
+                $ref: "#/components/responses/companiesForTokenRes"
   "/api/napi":
     post:
       summary: "Get User Details"
@@ -84,14 +82,14 @@ paths:
             default: "Bearer "
           required: true
       responses:
-        #TODO map possible responses
+        #TODO map possible responses, after getting documentation from wizcloud
         "304":
           description: "User Data"
           content:
             application/json:
               schema:
                 type: object
-                example: "{'session':{'cid':'wizdb493n4','user':'gilgardosh@gmail.com','user_id':32,'company_id':4,'branch':1,'use_name':'גיל גרדוש - משתמש נוסף לאורי גולדשטיין ','wizcomp_no':'493','company_name':'חברה של עדנה '},'data':[]}"
+                example: "{'session':{'cid':'wizdb21fn8','user':'mail@gmail.com','user_id':11,'company_id':9,'branch':1,'use_name':'משתמש כלשהו ','wizcomp_no':'345','company_name':'חברה של עדנה '},'data':[]}"
   "/jtransApi/tmpBatch":
     post:
       summary: "Import transactions, check errors and input batch"
@@ -116,14 +114,12 @@ paths:
             schema:
               $ref: "#/components/schemas/tmpJurnalBatchBody"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/batchRes"
   "/jtransApi/chkBatch":
     post:
       summary: "Checks if there are errors in the batch"
@@ -154,14 +150,12 @@ paths:
                     - $ref: "#/components/schemas/batchNo"
                     - description: "check the batch having this number"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/batchRes"
   "/jtransApi/newBatch":
     post:
       summary: "Opens a new batch and return the number"
@@ -179,14 +173,12 @@ paths:
             default: "Bearer "
           required: true
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/batchRes"
   "/jtransApi/issueBatch":
     post:
       summary: "Checks and inputs the temporary batch into the permanent storage."
@@ -206,7 +198,7 @@ paths:
       requestBody:
         required: true
         content:
-          application/x-www-form-urlencoded:
+          multipart/form-data:
             schema:
               type: object
               required:
@@ -217,14 +209,12 @@ paths:
                     - $ref: "#/components/schemas/batchNo"
                     - description: "Input the batch having this number"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/batchRes"
   "/IndexApi/importIndex":
     post:
       summary: "Imports or updates records to the selected index"
@@ -247,16 +237,20 @@ paths:
           application/x-www-form-urlencoded:
             #TODO check if all parameters are required, and api validation
             schema:
-              $ref: "#/components/schemas/importIndexRecordshBody"
+              $ref: "#/components/schemas/importIndexRecordsBody"
       responses:
-        #TODO map possible responses
         "200":
-          description: ""
+          description: "Imported successfully"
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/indexRes"
+        "304":
+          description: "Errors in data"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/responses/indexRes"
   "/invApi/createDoc":
     post:
       summary: "Imports and updates temporary documents"
@@ -282,14 +276,12 @@ paths:
             schema:
               $ref: "#/components/schemas/createDocumentBody"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/documentRes"
   "/invApi/issueDocument":
     post:
       summary: "Checks if there are errors in the batch"
@@ -319,14 +311,12 @@ paths:
                 stockID:
                   $ref: "#/components/schemas/stockID"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/documentRes"
   "/invApi/delDocument":
     post:
       summary: "Delete document from tables"
@@ -355,14 +345,12 @@ paths:
                 stockID:
                   $ref: "#/components/schemas/stockID"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/documentRes"
   "/invApi/getDoc":
     post:
       summary: "Show document data"
@@ -391,14 +379,12 @@ paths:
                 stockID:
                   $ref: "#/components/schemas/stockID"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/documentRes"
   "/BankPagesApi/importBankPage":
     post:
       summary: "Import  or update records to chosen index"
@@ -429,14 +415,12 @@ paths:
                   type: object
                   #TODO define the object and create schema
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
-                type: object
-                example: ""
+                $ref: "#/components/responses/bankPageRes"
   "/ExportDataApi/exportData":
     post:
       summary: "Export data according to the selected report"
@@ -468,6 +452,9 @@ paths:
               schema:
                 type: object
                 example: ""
+
+  # "/crmActivitiesApi/createSchema":
+  # "crmActivitiesTest/createSchema":
 
 components:
   parameters:
@@ -689,7 +676,7 @@ components:
       description: "Fax"
     Filter:
       type: string
-      maximum: 5  #NOTE: in Items Data could be 10
+      maximum: 5 #NOTE: in Items Data could be 10
       description: "Filtering"
     FixedOrderCost:
       type: number
@@ -741,7 +728,7 @@ components:
         - "1"
       description: "Transfer to MASAV"
     MatchCurr:
-      type: string 
+      type: string
       maximum: 5
       description: "Currency for reconciliation (when the price is in foreign currency) "
     MaxCredit:
@@ -791,10 +778,10 @@ components:
       maximum: 5
       description: "Purchasing price currency"
     PurchPrice:
-      type: integer
+      type: number
       format: float
       description: "Last purchasing price"
-    Quant:  #TODO: merge with Quantity
+    Quant: #TODO: merge with Quantity
       type: number
       format: float
       description: "Quantity"
@@ -869,10 +856,10 @@ components:
       example: "20.00"
     SumDiscount:
       type: number
-      format: float 
+      format: float
       description: "The discount amount"
     TaxFileNum:
-      type:  string
+      type: string
       maximum: 20
       description: "VAT registration number"
     Tftal:
@@ -973,8 +960,8 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/journalTrans"
-    
-    importIndexRecordshBody:
+
+    importIndexRecordsBody:
       type: object
       required: #TODO: make sure whats required
         - myindex
@@ -995,9 +982,10 @@ components:
           type: array
           items:
             oneOf:
+              - type: object #TODO: figure out why without this line pops an error
               - $ref: "#/components/schemas/accountsTrans"
               - $ref: "#/components/schemas/itemsTrans"
-  
+
     createDocumentBody:
       type: object
       required: #TODO: make sure whats required
@@ -1015,7 +1003,7 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/stockTrans"
-          
+
     exportDataRecordsBody:
       type: object
       required: #TODO: make sure whats required
@@ -1026,7 +1014,7 @@ components:
           $ref: "#/components/schemas/company"
         datafile:
           type: object
-          #TODO define the object and create schema      
+          #TODO define the object and create schema
 
     journalTrans:
       type: object
@@ -1352,10 +1340,259 @@ components:
         Warehouse:
           $ref: "#/components/schemas/Warehouse"
 
+    companiesForTokenResData:
+      type: object
+      properties:
+        repdata:
+          type: array
+          items:
+            type: object
+          description: "List of companies for user"
+      example: "{'repdata':[{'Company_File_Name':'wizdb77c2b','Company_Name':'חברה של עדנה ','Comp_Vatnum':'999999999'}]}"
+
+    batchResData:
+      type: object
+      properties:
+        status:
+          type: string
+        batch_issue:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+        batch_check:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+        newbatch:
+          $ref: "#/components/schemas/batchNo"
+        batchno:
+          $ref: "#/components/schemas/batchNo"
+        errors:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+
+    indexResData:
+      type: object
+      properties:
+        status:
+          type: string
+          description: "OK / Errors: 'error description' / No Permission"
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/errorItem"
+          description: "List of errors"
+    
+    errorItem:
+      type: object
+      properties:
+        index:
+          type: integer
+        err:
+          type: string
+    
+    documentResData:
+      type: object
+      properties:
+        status:
+          type: string
+        NewDocumentStockID:
+          description: "New stockid"
+          type: integer
+        DocumentIssuedStatus:
+          description: "IsError:'error description' / OK / IN TEMP"
+          type: string
+        TempDocumentDeleted:
+          description: "Yes or No"
+          type: string
+        # ErrorsOnDoc:
+        DocumentDetails:
+          description: "All document data"
+          type: array
+          items:
+            type: array
+            items:
+              oneOf:
+                - $ref: "#/components/schemas/DocumentDetails1"
+                - $ref: "#/components/schemas/DocumentDetails2"
+        errors:
+          description: "List of errors"
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+
+    DocumentDetails1: #TODO: rename for somethong meaningful
+      type: object
+      properties:
+        AccountKey:
+          $ref: "#/components/schemas/AccountKey"
+        AccountName:
+          $ref: "#/components/schemas/AccountName"
+        Address:
+          $ref: "#/components/schemas/Address"
+        Agent:
+          $ref: "#/components/schemas/Agent"
+        batch:  #TODO can this merge with batchNo?
+          type: integer
+        City:
+          $ref: "#/components/schemas/City"
+        copies: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        currency:
+          $ref: "#/components/schemas/Currency"
+        Details:
+          $ref: "#/components/schemas/Details"
+        DiscountPrc:
+          $ref: "#/components/schemas/DiscountPrc"
+        DocNumber:
+          $ref: "#/components/schemas/DocNumber"
+        DocumentID:
+          $ref: "#/components/schemas/DocumentID"
+        duedate:  #TODO: format doesnt match input date formats
+          type: string
+        issuedate:  #TODO: format doesnt match input date formats
+          type: string
+        mainrate: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        paydate:  #TODO: format doesnt match input date formats
+          type: string
+        Phone:
+          $ref: "#/components/schemas/Phone"
+        printstyle: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        Rate:
+          $ref: "#/components/schemas/Rate"
+        Reference:
+          $ref: "#/components/schemas/Reference"
+        Remarks:
+          $ref: "#/components/schemas/Remarks"
+        status:
+          type: string
+        StockID:
+          $ref: "#/components/schemas/stockID"
+        Tftal:
+          $ref: "#/components/schemas/Tftal"
+        tftalvat: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        tftalvatfree: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        vatprc: #TODO: make sure type is right (varify with wizcloud)
+          type: number
+        ValueDate:  #TODO: format doesnt match input date formats
+          $ref: "#/components/schemas/ValueDate"
+
+    DocumentDetails2: #TODO: rename for somethong meaningful
+      type: object
+      properties:
+        Agent:
+          $ref: "#/components/schemas/Agent"
+        CurrencyCode:
+          $ref: "#/components/schemas/CurrencyCode"
+        Details:
+          $ref: "#/components/schemas/Details"
+        DiscountPrc:
+          $ref: "#/components/schemas/DiscountPrc"
+        duedate:  #TODO: format doesnt match input date formats
+          type: string
+        ItemKey:
+          $ref: "#/components/schemas/ItemKey"
+        ItemName:
+          $ref: "#/components/schemas/ItemName"
+        moveid: #TODO: make sure type is right (varify with wizcloud)
+          type: integer
+        Price:
+          $ref: "#/components/schemas/Price"
+        Quantity:
+          $ref: "#/components/schemas/Quantity"
+        Rate:
+          $ref: "#/components/schemas/Rate"
+        status:
+          type: string
+        StockID:
+          $ref: "#/components/schemas/stockID"
+        Tftal:
+          $ref: "#/components/schemas/Tftal"
+        Warehouse:
+          $ref: "#/components/schemas/Warehouse"
+
+        # batch_issue:
+        #   oneOf:
+        #     - type: string
+        #     - type: array
+        # batch_check:
+        #   oneOf:
+        #     - type: string
+        #     - type: array
+        # newbatch:
+        #   $ref: "#/components/schemas/batchNo"
+        # batchno:
+        #   $ref: "#/components/schemas/batchNo"
+        errors:
+          oneOf:
+            - type: string
+            - type: array
+              items:
+                type: object
+
+    bankPageResData:
+      type: object
+      properties:
+        status:
+          type: string
+          description: "OK / No Permission"
+        errors:
+          type: array
+          items:
+            $ref: "#/components/schemas/errorItem"
+          description: "List of errors"
+
+  responses:
+    batchRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/batchResData"
+    
+    indexRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/indexResData"
+    
+    documentRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/documentResData"
+
+    bankPageRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/bankPageResData"
+
+    companiesForTokenRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/companiesForTokenResData"
+
   securitySchemes:
     wizAuth:
       type: http
       scheme: bearer
       bearerFormat: string
-
-  # responses:

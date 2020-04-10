@@ -35,14 +35,12 @@ paths:
             text/plain:
               schema:
                 type: string
-  "/CompanyListToTokenApi/TokenCompanies":
+  /CompanyListToTokenApi/TokenCompanies:
     post:
       summary: "Get Companies List"
       tags:
         - "companies"
         - "Get"
-      security:
-        - wizAuth: []
       operationId: "CompaniesForToken"
       parameters:
         - in: header

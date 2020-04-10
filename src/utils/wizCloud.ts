@@ -39,6 +39,7 @@ export async function wizCloudCallApi(apiPath, data) {
       .then(
         (result) => {
           const wizAuthToken = result;
+          // const url = "http://127.0.0.1:3000/forward"
           const url = `https://${wizServer}/${apiPath}`;
           const options = {
             form: data,

@@ -1,0 +1,31 @@
+mutation adgadsf {
+	tmpJurnalBatch(
+    authorization: "ef5c67fa9f99a1c0a3db5e70903230db124cc905b9a49a5d0fc04d9bc66912d034f07f01ace3e07cbe1bcf3c6d0ade42377f808e5900af9cfc810699dee9ffb4eb2d8024feb18f60cab494583ebcc111ffc9eefaf73187284407624eb074c7c7aa66f8e2bab38625aaa8839f004ce77b"
+    tmpJurnalBatchBodyInput: {
+      batchNo: 15
+      insertolastb: true
+      issue: false
+      check: true
+      rows: [{
+        transType: "חל"
+        transDebID: "30002"
+        debName: "סימפטיה שופ"
+        transCredID: "40001"
+        credName: "הכנסות ממכירה בארץ - כולל מעמ"
+        reference: 100
+        description: "חשבונית"
+        dueDate: "29/03/2018"
+        valueDate: "30/03/2018"
+        suF: 1000
+        suFDlr: 0
+        currencyCode: "$"
+        moves: [{
+            accountKey: "111"
+            debitCredit: _1
+            suF: 1000
+            suFDlr: 0
+        }]
+      }]
+    }
+	)
+}
