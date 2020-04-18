@@ -440,9 +440,20 @@ paths:
         required: true
         content:
           application/x-www-form-urlencoded:
-            #TODO check if all parameters are required, and api validation
             schema:
-              $ref: "#/components/schemas/exportDataRecordsBody"
+              type: object
+              required:
+                - datafile
+                - parameters
+              properties:
+                parameters:
+                  type: array
+                  items:
+                    type: object
+                    #TODO define the object and create schema
+                datafile:
+                  type: string
+
       responses:
         #TODO map possible responses
         "200":
@@ -454,7 +465,7 @@ paths:
                 example: ""
 
   # "/crmActivitiesApi/createSchema":
-  # "crmActivitiesTest/createSchema":
+  # "/crmActivitiesTest/createSchema":
 
 components:
   parameters:
@@ -1007,14 +1018,16 @@ components:
     exportDataRecordsBody:
       type: object
       required: #TODO: make sure whats required
-        - myDBname
         - datafile
+        - parameters
       properties:
-        myDBname:
-          $ref: "#/components/schemas/company"
+        parameters:
+          type: array
+          items:
+            type: object
+            #TODO define the object and create schema
         datafile:
-          type: object
-          #TODO define the object and create schema
+          type: string
 
     journalTrans:
       type: object
