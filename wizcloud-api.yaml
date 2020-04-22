@@ -46,6 +46,7 @@ paths:
   "/CompanyListToTokenApi/TokenCompanies":
     post:
       summary: "Get Companies List"
+      description: "Export companies list for user token that defined on: 'WizcloudApiPrivateKey' (Include: Company_File_Name, Company_Name, Comp_Vatnum)"
       tags:
         - "companies"
         - "Get"
@@ -65,7 +66,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/companiesForTokenRes"
+                $ref: "#/components/schemas/companiesForTokenResData"
   "/api/napi":
     post:
       summary: "Get User Details"
@@ -82,7 +83,6 @@ paths:
             default: "Bearer "
           required: true
       responses:
-        #TODO map possible responses, after getting documentation from wizcloud
         "304":
           description: "User Data"
           content:
@@ -119,7 +119,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/batchRes"
+                $ref: "#/components/schemas/batchResData"
   "/jtransApi/chkBatch":
     post:
       summary: "Checks if there are errors in the batch"
@@ -155,7 +155,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/batchRes"
+                $ref: "#/components/schemas/batchResData"
   "/jtransApi/newBatch":
     post:
       summary: "Opens a new batch and return the number"
@@ -178,7 +178,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/batchRes"
+                $ref: "#/components/schemas/batchResData"
   "/jtransApi/issueBatch":
     post:
       summary: "Checks and inputs the temporary batch into the permanent storage."
@@ -214,7 +214,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/batchRes"
+                $ref: "#/components/schemas/batchResData"
   "/IndexApi/importIndex":
     post:
       summary: "Imports or updates records to the selected index"
@@ -244,13 +244,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/indexRes"
+                $ref: "#/components/schemas/indexResData"
         "304":
           description: "Errors in data"
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/indexRes"
+                $ref: "#/components/schemas/indexResData"
   "/invApi/createDoc":
     post:
       summary: "Imports and updates temporary documents"
@@ -281,7 +281,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/documentRes"
+                $ref: "#/components/schemas/documentResData"
   "/invApi/issueDocument":
     post:
       summary: "Checks if there are errors in the batch"
@@ -316,7 +316,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/documentRes"
+                $ref: "#/components/schemas/documentResData"
   "/invApi/delDocument":
     post:
       summary: "Delete document from tables"
@@ -350,7 +350,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/documentRes"
+                $ref: "#/components/schemas/documentResData"
   "/invApi/getDoc":
     post:
       summary: "Show document data"
@@ -384,7 +384,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/documentRes"
+                $ref: "#/components/schemas/documentResData"
   "/BankPagesApi/importBankPage":
     post:
       summary: "Import  or update records to chosen index"
@@ -420,7 +420,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/responses/bankPageRes"
+                $ref: "#/components/schemas/companiesForTokenResData"
   "/ExportDataApi/exportData":
     post:
       summary: "Export data according to the selected report"
@@ -444,25 +444,43 @@ paths:
               type: object
               required:
                 - datafile
-                - parameters
               properties:
                 parameters:
                   type: array
+                  description: "from defined param(params_data)"
                   items:
                     type: object
-                    #TODO define the object and create schema
+                    properties:
+                      p_name:
+                        type: string
+                      id:
+                        type: integer
+                      type:
+                        type: string
+                      name:
+                        type: string
+                      defVal:
+                        type: string
+                      opName:
+                        type: string
+                      opOrigin:
+                        type: string
                 datafile:
                   type: string
-
+                  description: "from defined param(encrypt_reportData)"
       responses:
-        #TODO map possible responses
         "200":
           description: ""
           content:
-            "*/*":
+            application/json:
               schema:
+                description: ""
                 type: object
-                example: ""
+                properties:
+                  repdata:
+                    type: array
+                    items:
+                      type: object
 
   # "/crmActivitiesApi/createSchema":
   # "/crmActivitiesTest/createSchema":
@@ -1603,6 +1621,18 @@ components:
         application/json:
           schema:
             $ref: "#/components/schemas/companiesForTokenResData"
+
+    exportDataRes:
+      description: ""
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              repdata:
+                type: array
+                items:
+                  type: object
 
   securitySchemes:
     wizAuth:
