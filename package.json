@@ -36,7 +36,7 @@
     "dotenv": "^8.2.0",
     "express": "^5.0.0-alpha.7",
     "graphql": "^15.0.0",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^2.6.7",
     "request": "^2.88.2",
     "wizcloud-api": "^1.0.14"
   },
